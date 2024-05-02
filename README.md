@@ -48,30 +48,32 @@ Things you may want to cover:
 - has_many :items
 - has_many :purchases
 - has_many :shipping_addresses
+<!-- 複数形の時だけSがつく -->
 
 ## items table
 
 <!-- 出品 -->
 
-| Column              | Type       | Options                        |
-| ------------------- | ---------- | ------------------------------ |
-| user                | references | null: false, foreign_key: true |
-| product_name        | string     | null: false                    |
-| product_description | text       | null: false                    |
-| category            | string     | null: false,                   |
-| product_condition   | string     | null: false,                   |
-| shipping_fee_burden | string     | null: false,                   |
-| shipping_area       | string     | null: false,                   |
-| shipping_days       | string     | null: false,                   |
-| Selling_price       | integer    | null: false,                   |
-| sales_commission    | integer    | null: false,                   |
-| sales_profit        | integer    | null: false,                   |
+| Column                 | Type       | Options                        |
+| ---------------------- | ---------- | ------------------------------ |
+| user                   | references | null: false, foreign_key: true |
+| product_name           | string     | null: false                    |
+| product_description    | text       | null: false                    |
+| category_id            | integer    | null: false                    |
+| product_condition_id   | integer    | null: false                    |
+| shipping_fee_burden_id | integer    | null: false                    |
+| shipping_area_id       | integer    | null: false                    |
+| shipping_day_id        | integer    | null: false                    |
+| selling_price          | integer    | null: false                    |
 
 ### Association
 
-- belongs_to :users
-- has_many :purchases
-<!-- itemがuserに属する　belongs_toに外部キーを書く -->
+- belongs_to :user
+<!-- １つの商品は1人のユーザーによって出品されている（属している） -->
+- has_one :purchase
+  <!-- １つの商品は１回だけ購入できる（属している） -->
+  <!-- itemがuserに属する　belongs_toに外部キーを書く -->
+  <!-- 親の方のテーブルにhas_oneを書く -->
 
 ## purchases table
 
@@ -80,7 +82,7 @@ Things you may want to cover:
 | Column | Type       | Options                        |
 | ------ | ---------- | ------------------------------ |
 | user   | references | null: false, foreign_key: true |
-| item   | references | null: false                    |
+| item   | references | null: false, foreign_key: true |
 
 <!-- カラムは１つのデータが入るから単数系 -->
 
@@ -88,9 +90,9 @@ Things you may want to cover:
 
 ### Association
 
-- belongs_to :users
-- belongs_to :items
-- has_one :shipping_addresses table
+- belongs_to :user
+- belongs_to :item
+- has_one :shipping_address
   <!-- 1対1 親がpurchases子が shipping_addresses -->
   <!-- 外部キーテーブル同士の結びつき　属する側に属される側のテーブル名_id | -->
 
@@ -98,17 +100,16 @@ Things you may want to cover:
 
 <!-- 配送先 -->
 
-| Column           | Type       | Options                        |
-| ---------------- | ---------- | ------------------------------ |
-| user             | references | null: false, foreign_key: true |
-| post_code        | string     | null: false                    |
-| prefectures      | string     | null: false                    |
-| municipalities   | string     | null: false                    |
-| street_address   | string     | null: false,                   |
-| building_name    | string     | null: false,                   |
-| street_address   | string     | null: false,                   |
-| telephone_number | string     | null: false,                   |
+| Column           | Type    | Options                        |
+| ---------------- | ------- | ------------------------------ |
+| purchase         | string  | null: false, foreign_key: true |
+| post_code        | string  | null: false                    |
+| prefecture_id    | integer | null: false                    |
+| city_name        | string  | null: false                    |
+| street_address   | string  | null: false                    |
+| building_name    | string  |                                |
+| telephone_number | string  | null: false                    |
 
 ### Association
 
-- belongs_to :users
+- belongs_to: purchase
