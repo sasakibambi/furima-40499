@@ -28,16 +28,20 @@ Things you may want to cover:
 
 ## users table
 
+<!-- テーブル名にはsがつく。複数のデータが入るから。 -->
+
 <!-- 登録 -->
 
-| Column        | Type    | Options                   |
-| ------------- | ------- | ------------------------- |
-| nickname      | string  | null: false               |
-| email         | string  | null: false, unique: true |
-| password      | string  | null: false               |
-| name          | string  | null: false               |
-| name(kana)    | string  | null: false               |
-| date_of_birth | integer | null: false               |
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| nickname           | string | null: false               |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| family_name        | string | null: false               |
+| first_name         | string | null: false               |
+| family_name_kana   | string | null: false               |
+| first_name_kana    | string | null: false               |
+| date_of_birth      | date   | null: false               |
 
 ### Association
 
@@ -51,7 +55,7 @@ Things you may want to cover:
 
 | Column              | Type       | Options                        |
 | ------------------- | ---------- | ------------------------------ |
-| user_id             | references | null: false, foreign_key: true |
+| user                | references | null: false, foreign_key: true |
 | product_name        | string     | null: false                    |
 | product_description | text       | null: false                    |
 | category            | string     | null: false,                   |
@@ -65,42 +69,46 @@ Things you may want to cover:
 
 ### Association
 
-- belongs_to :user
+- belongs_to :users
 - has_many :purchases
 <!-- itemがuserに属する　belongs_toに外部キーを書く -->
 
-## purchase table
+## purchases table
 
-<!-- 購入 -->
+<!-- 購入管理テーブル　誰が何を -->
 
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| user_id | references | null: false, foreign_key: true |
-| item_id | references | null: false                    |
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| user   | references | null: false, foreign_key: true |
+| item   | references | null: false                    |
+
+<!-- カラムは１つのデータが入るから単数系 -->
 
 <!-- 外部キー　テーブル同士の結びつき  -->
 
 ### Association
 
-- belongs_to :user
-- belongs_to :item
-<!-- 外部キーテーブル同士の結びつき　属する側に属される側のテーブル名_id | -->
+- belongs_to :users
+- belongs_to :items
+- has_one :shipping_addresses table
+  <!-- 1対1 親がpurchases子が shipping_addresses -->
+  <!-- 外部キーテーブル同士の結びつき　属する側に属される側のテーブル名_id | -->
 
-## shipping_address table
+## shipping_addresses table
 
 <!-- 配送先 -->
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
-| user_id          | references | null: false, foreign_key: true |
-| post_code        | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true |
+| post_code        | string     | null: false                    |
 | prefectures      | string     | null: false                    |
 | municipalities   | string     | null: false                    |
 | street_address   | string     | null: false,                   |
 | building_name    | string     | null: false,                   |
 | street_address   | string     | null: false,                   |
-| telephone_number | integer    | null: false,                   |
+| telephone_number | string     | null: false,                   |
 
 ### Association
 
-- belongs_to :user
+- belongs_to :users
