@@ -99,15 +99,15 @@ Things you may want to cover:
 
 <!-- 配送先 -->
 
-| Column           | Type    | Options                        |
-| ---------------- | ------- | ------------------------------ |
-| purchase         | string  | null: false, foreign_key: true |
-| post_code        | string  | null: false                    |
-| prefecture_id    | integer | null: false                    |
-| city_name        | string  | null: false                    |
-| street_address   | string  | null: false                    |
-| building_name    | string  |                                |
-| telephone_number | string  | null: false                    |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| purchase         | references | null: false, foreign_key: true |
+| post_code        | string     | null: false                    |
+| prefecture_id    | integer    | null: false                    |
+| city_name        | string     | null: false                    |
+| street_address   | string     | null: false                    |
+| building_name    | string     |                                |
+| telephone_number | string     | null: false                    |
 
 ### Association
 
