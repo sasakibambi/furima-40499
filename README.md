@@ -47,7 +47,6 @@ Things you may want to cover:
 
 - has_many :items
 - has_many :purchases
-- has_many :shipping_addresses
 <!-- 複数形の時だけSがつく -->
 
 ## items table
@@ -62,7 +61,7 @@ Things you may want to cover:
 | category_id            | integer    | null: false                    |
 | product_condition_id   | integer    | null: false                    |
 | shipping_fee_burden_id | integer    | null: false                    |
-| shipping_area_id       | integer    | null: false                    |
+| prefecture_id          | integer    | null: false                    |
 | shipping_day_id        | integer    | null: false                    |
 | selling_price          | integer    | null: false                    |
 
