@@ -1,8 +1,10 @@
 class ApplicationController < ActionController::Base
-  before_action :basic_auth
-
-
+  before_action :basic_auth, :configure_permitted_parameters, if: :devise_controller?
   private
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname, :encrypted_password, :family_name, :first_name, :family_name_kana, :first_name_kana, :date_of_birth ])
+  end
 
   def basic_auth
     authenticate_or_request_with_http_basic do |username, password|
@@ -11,3 +13,6 @@ class ApplicationController < ActionController::Base
   end
 end
   
+# devise使用時はここのコントローラーが呼び出される
+#  devise_parameter_sanitizer新規登録をデバイス経由で使いたい時
+# configure_permitted_parametersデバイス経由でパラメーターが送信される
