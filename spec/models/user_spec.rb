@@ -69,7 +69,11 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include "Password is invalid"
     end  
-    it 'パスワードとパスワード（確認）は、値の一致が必須であること。' do
+    it 'パスワードとパスワード（確認）は、値の一致が必須であること。（passwordとpassword_confirmationが不一致では登録できない）' do
+        @user.password = '123456'
+        @user.password_confirmation = '1234567'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
     it 'お名前(全角)は、名字が必須であること。' do 
       @user.family_name = ''
