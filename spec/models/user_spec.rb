@@ -9,7 +9,7 @@ RSpec.describe User, type: :model do
         expect(@user).to be_valid
     end
   end
-  context '新規登録できないとき' do 
+    context '新規登録できないとき' do 
       it 'nicknameが空では登録できない' do
         # user = FactoryBot.build(:user)  # Userのインスタンス生成
         # user.nickname = ''  # nicknameの値を空にする
