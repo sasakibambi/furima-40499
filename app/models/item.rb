@@ -2,6 +2,12 @@ class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   has_one_attached :image
   belongs_to :user
+  belongs_to :category 
+  belongs_to :prefecture
+  belongs_to :product_condition
+  belongs_to :shipping_day
+  belongs_to :shipping_fee_burden
+
   # ↑紐づいたユーザーが存在しているかのチェックをしている
   # →validates :user, presence: trueは必要ない
 
@@ -35,7 +41,7 @@ class Item < ApplicationRecord
       errors.add(:selling_price, "must be a valid numerical format")
     end
   end
-  
+
   def image_attached
     unless image.attached?
       errors.add(:image, "must be attached")
