@@ -1,11 +1,12 @@
 class ItemsController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
+  # except: [:index, :show]以外のリクエストは、ログアウト中のユーザーがリクエストを送った場合は自動的にログインページを表示させる.（ログインしていなければ[:index, :show]しか作動しない）
   def index
-      @items = Item.order("created_at DESC")
+      # @items = Item.order("created_at DESC")
   end
 
   def new
     @item = Item.new
-    # @product_conditions = ['新品、未使用', '未使用に近い', /* 他の状態を追加 */]
   end
 
   def create
