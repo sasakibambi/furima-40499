@@ -1,7 +1,6 @@
 require 'rails_helper'
 
- RSpec.describe Item, type: :model do
-
+RSpec.describe Item, type: :model do
   before do
     @item = FactoryBot.build(:item)
   end
@@ -10,10 +9,10 @@ require 'rails_helper'
     context '商品が出品できるとき' do
       it '全ての条件が揃っていれば登録できる' do
         expect(@item).to be_valid
-      end 
+      end
     end
 
-    context '商品が出品できないとき' do 
+    context '商品が出品できないとき' do
       it '商品画像を1枚つけることが必須であること' do
         @item.image = nil
         @item.valid?
@@ -71,18 +70,18 @@ require 'rails_helper'
       it '価格は、¥300~¥9,999,999の間のみ保存可能であること' do
         @item.selling_price = 299
         @item.valid?
-        expect(@item.errors.full_messages).to include "Selling price must be greater than or equal to 300"
+        expect(@item.errors.full_messages).to include 'Selling price must be greater than or equal to 300'
 
         @item.selling_price = 10_000_000
         @item.valid?
-        expect(@item.errors.full_messages).to include "Selling price must be less than or equal to 9999999"
+        expect(@item.errors.full_messages).to include 'Selling price must be less than or equal to 9999999'
       end
 
       it '価格は半角数値のみ保存可能であること' do
         @item.selling_price = '１０００'
         @item.valid?
-        expect(@item.errors.full_messages).to include "Selling price is not a number"
-      end  
+        expect(@item.errors.full_messages).to include 'Selling price is not a number'
+      end
 
       it 'カテゴリーが選択されていないと商品が出品できないこと' do
         @item.category_id = nil
