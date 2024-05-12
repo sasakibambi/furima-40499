@@ -16,6 +16,15 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def edit
+    @item = Item.find(params[:id])
+    return unless current_user != @item.user
+
+    redirect_to root_path
+  end
+
+  # もしログインしているユーザーが商品の出品者でなければ
+  # もしtrueだったらトップページへ遷移させる
   def create
     @item = Item.new(item_params)
     if @item.save
@@ -26,6 +35,16 @@ class ItemsController < ApplicationController
     # バリデーションに引っ掛からず保存できたら
     # topページに遷移する
     # 出品ページに戻っていく
+    # エラーハンドリング(エラーが起きた時起きなかった処理)もできる
+  end
+
+  def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
