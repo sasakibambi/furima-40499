@@ -1,14 +1,17 @@
-class Form < ApplicationRecord
+class Form 
   include ActiveModel::Model
-  attr_accessor :post_code, :prefecture_id, :city_name, :street_address, :building_name, :telephone_number
-
+  attr_accessor :post_code, :prefecture_id, :city_name, :street_address, :building_name, :telephone_number,:user_id,:item_id
+  
   # ここにバリデーションの処理を書く
   validates :post_code, presence: true
-  validates :prefecture_id, presence: true
+  validates :prefecture_id, presence: true, numericality: { other_than: 0 }
   validates :city_name, presence: true
   validates :street_address, presence: true
   validates :building_name, presence: true
   validates :telephone_number, presence: true
+  validates :user_id, presence: true
+  validates :item_id, presence: true
+  
 
   def save
     # 購入情報を保存
@@ -27,12 +30,3 @@ class Form < ApplicationRecord
   end
 end
 
-  class Purchase < ApplicationRecord
-    belongs_to :user
-    belongs_to :item
-    has_one :shipping_address
-  end
-
-  class ShippingAddress < ApplicationRecord
-    belongs_to :purchase
-  end
