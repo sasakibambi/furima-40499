@@ -6,7 +6,7 @@
 
 class PurchasesController < ApplicationController
   before_action :authenticate_user!  # ユーザーが認証されていることを確認
- 
+  before_action :set_item, only: [:index, :create]
 
   def index
     @form = Form.new  # Formオブジェクトのインスタンスを作成して、インスタンス変数に代入する
@@ -23,6 +23,10 @@ class PurchasesController < ApplicationController
   end
 
   private
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
 
   def purchase_params
    
