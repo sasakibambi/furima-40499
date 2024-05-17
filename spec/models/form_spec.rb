@@ -25,7 +25,7 @@ RSpec.describe Form, type: :model do
       it '郵便番号が「3桁ハイフン4桁」の形式でなければ購入できない' do
         @form.post_code = '1234567'
         @form.valid?
-        expect(@form.errors.full_messages).to include "Post code is invalid"
+        expect(@form.errors.full_messages).to include 'Post code is invalid'
       end
 
       it '都道府県が空では購入できない' do
@@ -55,28 +55,27 @@ RSpec.describe Form, type: :model do
       it '電話番号が9桁以下では購入できない' do
         @form.telephone_number = '123456789'
         @form.valid?
-        expect(@form.errors.full_messages).to include "Telephone number is invalid"
+        expect(@form.errors.full_messages).to include 'Telephone number is invalid'
       end
 
       it '電話番号が12桁以上では購入できない' do
         @form.telephone_number = '123456789012'
         @form.valid?
-        expect(@form.errors.full_messages).to include "Telephone number is invalid"
+        expect(@form.errors.full_messages).to include 'Telephone number is invalid'
       end
-      
+
       it '電話番号に半角数字以外が含まれている場合は購入できない' do
         @form.telephone_number = '090-1234-5678'
         @form.valid?
-        expect(@form.errors.full_messages).to include "Telephone number is invalid"
+        expect(@form.errors.full_messages).to include 'Telephone number is invalid'
       end
       it '電話番号にハイフンが含まれていると保存できないこと' do
         @form.telephone_number = '090-1234-5678'
         @form.valid?
-        expect(@form.errors.full_messages).to include "Telephone number is invalid"
+        expect(@form.errors.full_messages).to include 'Telephone number is invalid'
       end
 
-
-      it "tokenが空では登録できないこと" do
+      it 'tokenが空では登録できないこと' do
         @form.token = nil
         @form.valid?
         expect(@form.errors.full_messages).to include("Token can't be blank")
