@@ -13,6 +13,6 @@ class User < ApplicationRecord
   validates :first_name_kana, presence: true, format: { with: /\A[\p{katakana} ー－&&[^ -~｡-ﾟ]]+\z/ }
   # validatesはダメな時に弾くもの
 
-  # has_many :items
-  # has_many :purchases
+   has_many :items
+   has_many :purchases
 end

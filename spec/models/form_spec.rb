@@ -13,6 +13,10 @@ RSpec.describe Form, type: :model do
       it '全ての条件が揃っていれば購入できる' do
         expect(@form).to be_valid
       end
+      it '建物名が空でも購入できる' do
+        @form.building_name  = ''
+        expect(@form).to be_valid
+      end
     end
 
     context '購入ができないとき' do
@@ -80,6 +84,18 @@ RSpec.describe Form, type: :model do
         @form.valid?
         expect(@form.errors.full_messages).to include("Token can't be blank")
       end
+
+      it 'userが紐付いていなければ購入できない' do
+        @form.user_id = nil
+        @form.valid?
+        expect(@form.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'itemが紐付いていなければ購入できない' do
+        @form.item_id = nil
+        @form.valid?
+        expect(@form.errors.full_messages).to include("Item can't be blank")
+      end  
     end
   end
 end

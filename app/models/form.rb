@@ -4,17 +4,19 @@ class Form
                 :token
 
   # ここにバリデーションの処理を書く
-  validates :token, presence: true
-  validates :post_code, presence: true, format: { with: /\A\d{3}-\d{4}\z/ }
-  validates :prefecture_id, presence: true, numericality: { other_than: 0 }
-  validates :city_name, presence: true
-  validates :street_address, presence: true
-  validates :telephone_number, presence: true, format: { with: /\A\d{10,11}\z/ },
+  with_options presence: true do
+  validates :token
+  validates :post_code,  format: { with: /\A\d{3}-\d{4}\z/ }
+  validates :prefecture_id,  numericality: { other_than: 0 }
+  validates :city_name 
+  validates :street_address 
+  validates :telephone_number,  format: { with: /\A\d{10,11}\z/ },
                                exclusion: { in: %w[-] }
 
-  validates :user_id, presence: true
-  validates :item_id, presence: true
-
+  validates :user_id
+  validates :item_id 
+  end
+  
   def save
     # 購入情報を保存
     # purchase = Purchase.create(user_id:, item_id:)
