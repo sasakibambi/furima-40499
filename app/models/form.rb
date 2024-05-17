@@ -16,12 +16,12 @@ class Form
   validates :user_id
   validates :item_id 
   end
-  
+
   def save
     # 購入情報を保存
     # purchase = Purchase.create(user_id:, item_id:)
     # purchase = Purchase.create(user_id:, item_id:, token:)
-     purchase = Purchase.create(user_id: user_id, item_id: item_id, token: token)
+     purchase = Purchase.create(user_id: user_id, item_id: item_id)
 
 
     # 配送先情報を保存
