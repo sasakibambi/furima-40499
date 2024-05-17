@@ -23,11 +23,16 @@ class ItemsController < ApplicationController
       redirect_to root_path
     end
   end
+  # current_user→今ログインしているユーザー
+  # 今削除しようとしているアイテム→@item
+  # 出品しているユーザー→@item.userの.user部分
 
   def edit
-    return unless current_user != @item.user
-
-    redirect_to root_path
+    if current_user != @item.user
+      redirect_to root_path
+    elsif @item.purchase
+      redirect_to root_path
+    end
   end
 
   # もしログインしているユーザーが商品の出品者でなければ

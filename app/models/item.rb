@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   belongs_to :product_condition
   belongs_to :shipping_day
   belongs_to :shipping_fee_burden
+  has_one :purchase
 
   # ↑紐づいたユーザーが存在しているかのチェックをしている
   # →validates :user, presence: trueは必要ない
