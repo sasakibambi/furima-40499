@@ -1,29 +1,5 @@
 # README
 
-<!--
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-- Ruby version
-
-- System dependencies
-
-- Configuration
-
-- Database creation
-
-- Database initialization
-
-- How to run the test suite
-
-- Services (job queues, cache servers, search engines, etc.)
-
-- Deployment instructions
-
-- ... -->
-
 # DB 設計
 
 ## users table
@@ -70,7 +46,7 @@ Things you may want to cover:
 - belongs_to :user
 <!-- １つの商品は1人のユーザーによって出品されている（属している） -->
 - has_one :purchase
-  <!-- １つの商品は１回だけ購入できる（属している） -->
+  <!-- １つの商品は１回だけ購入できる（属している）1対1 -->
   <!-- itemがuserに属する　belongs_toに外部キーを書く -->
   <!-- 親の方のテーブルにhas_oneを書く -->
 
